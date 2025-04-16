@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fit+Nexus&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .receipt {
+            width: 100%;
+            max-width: 500px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            position: relative;
+        }
+        
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .header img:first-child {
+            width: 45px;
+            height: 60px;
+            transform: rotate(120.64deg);
+            position: absolute;
+            left: 20px;
+        }
+        
+        .header img.logo {
+            width: 46px;
+            height: 51px;
+            position: absolute;
+            left: 60px;
+        }
+        
+        .logo {
+            text-align: center;
+        }
+        
+        .logo h1 {
+            font-family: 'Fit Nexus', sans-serif;
+            font-size: 26px;
+            font-weight: 900;
+            line-height: 1.2;
+            margin: 0;
+            color: #4B1F0E;
+        }
+        
+        .details, .order, .total, .payment {
+            margin-bottom: 25px;
+        }
+        
+        .details p, .total p {
+            margin-bottom: 10px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        
+        .order {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+        
+        .order p, .payment p {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        
+        .order p:first-child, .payment p:first-child {
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .total {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+        
+        .total p span {
+            font-weight: bold;
+        }
+        
+        #paymentStatus {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        #timer1 {
+            font-weight: bold;
+        }
+        
+        .payment {
+            position: relative;
+        }
+        
+        .payment img {
+            width: 18px;
+            height: 20px;
+            position: absolute;
+            right: 0;
+            top: 55px;
+        }
+        
+        .payment span {
+            display: block;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            margin-top: 5px;
+            font-family: monospace;
+            font-size: 16px;
+            text-align: center;
+        }
+        
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            display: none;
+        }
+        
+        .popup img {
+            width: 137px;
+            height: 141px;
+            margin-bottom: 20px;
+        }
+        
+        .popup p {
+            margin-bottom: 15px;
+            font-size: 18px;
+            max-width: 80%;
+        }
+        
+        .popup p:first-of-type {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .popup p:last-of-type {
+            margin-bottom: 30px;
+        }
+        
+        .popup button {
+            padding: 15px 25px;
+            background-color: #e48818;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        
+        .popup button:hover {
+            background-color: #d17716;
+        }
+        
+        .next-btn {
+            display: block;
+            width: 100%;
+            max-width: 200px;
+            padding: 15px;
+            background-color: #e48818;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            margin: 20px auto 0;
+            transition: background-color 0.3s;
+        }
+        
+        .next-btn:hover {
+            background-color: #d17716;
+        }
+        
+        @media (max-width: 600px) {
+            .receipt {
+                padding: 20px;
+                border-radius: 10px;
+            }
+            
+            .header {
+                padding-bottom: 15px;
+                margin-bottom: 20px;
+            }
+            
+            .logo h1 {
+                font-size: 22px;
+            }
+            
+            .details p, .order p, .payment p, .total p {
+                font-size: 14px;
+            }
+            
+            .payment span {
+                font-size: 14px;
+            }
+            
+            .popup img {
+                width: 100px;
+                height: auto;
+            }
+            
+            .popup p {
+                font-size: 16px;
+            }
+            
+            .popup p:first-of-type {
+                font-size: 20px;
+            }
+            
+            .popup button, .next-btn {
+                font-size: 16px;
+                padding: 12px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="receipt">
+        <div class="header">
+           
+            <div class="logo">
+                <h1>CAFFEINE</h1>
+                <h1>CORNER.</h1>
+            </div>
+        </div>
+        
+        <div class="details">
+            <p><strong>Nama Lengkap:</strong> Anisa Gloria</p>
+            <p><strong>Nomor Meja:</strong> 12</p>
+        </div>
+        
+        <div class="order">
+            <p><strong>Pesanan</strong></p>
+            <p>Espresso x1 <span>Rp. 20.000,00</span></p>
+            <p>Americano x1 <span>Rp. 20.000,00</span></p>
+            <p>Latte x1 <span>Rp. 20.000,00</span></p>
+            <p>Cappuccino x1 <span>Rp. 25.000,00</span></p>
+        </div>
+        
+        <div class="total">
+            <p><strong>Total Pesanan:</strong> <span style="color: black;">Rp. 85.000,00</span></p>
+            <p><strong>Status Pembayaran:</strong> <span id="paymentStatus">Belum Lunas</span></p>
+            <p><strong>Waktu pembayaran:</strong> <span id="timer1">00:15</span></p>
+        </div>
+        
+        <div class="payment">
+            <p><strong>BCA</strong></p>
+            <p>No.Virtual Account</p>
+            <img src="/api/placeholder/18/20" alt="Copy icon">
+            <span>AN154610714581808</span>
+        </div>
+    </div>
+    
+    <div id="popup" class="popup">
+        <img src="/api/placeholder/137/141" alt="Check icon">
+        <p>Pembayaran Berhasil!</p>
+        <p>Espresso x1 <span>Rp. 20.000,00</span></p>
+        <p>Americano x1 <span>Rp. 20.000,00</span></p>
+        <p>Latte x1 <span>Rp. 20.000,00</span></p>
+        <p>Cappuccino x1 <span>Rp. 25.000,00</span></p>
+        <p>Pesanan sedang di proses, Kopi favorit Anda segera siap untuk dinikmati!</p>
+        <a href="main.html">
+            <button class="next-btn">Kembali</button>
+        </a>
+    </div>
+    
+    <script>
+        // Countdown timer
+        function startTimer(duration, display) {
+            let timer = duration, minutes, seconds;
+            const interval = setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+                
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+                
+                display.textContent = minutes + ":" + seconds;
+                
+                if (--timer < 0) {
+                    clearInterval(interval);
+                    document.getElementById('paymentStatus').textContent = 'Lunas';
+                    document.getElementById('paymentStatus').style.color = '#27ae60';
+                    setTimeout(function() {
+                        document.getElementById('popup').style.display = 'flex';
+                    }, 1000);
+                }
+            }, 1000);
+        }
+        
+        window.onload = function () {
+            const fifteenMinutes = 60 * 0.25;
+            const display = document.querySelector('#timer1');
+            startTimer(fifteenMinutes, display);
+        };
+    </script>
+</body>
+</html>

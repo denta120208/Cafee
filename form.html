@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fit+Nexus:wght@400&display=swap" rel="stylesheet">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'DM Sans', Arial, sans-serif;
+    background-color: #fff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 90%;
+    max-width: 500px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.header {
+    background-color: #4B1F0E;
+    color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 40px;
+    position: relative;
+    height: auto;
+    min-height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo-images {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.logo img:first-child {
+    width: 45px;
+    height: 60px;
+    transform: rotate(120.64deg);
+    position: relative;
+    top: 5px;
+    left: -10px;
+}
+
+.logo p {
+    font-family: 'Fit Nexus', sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    line-height: 26px;
+    margin: 0;
+    color: white;
+}
+
+.order-type {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.order-type button {
+    flex: 1;
+    background-color: #FFB042;
+    border: none;
+    padding: 15px;
+    color: white;
+    cursor: pointer;
+    outline: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    max-width: 200px;
+    height: 50px;
+}
+
+.order-type .active {
+    background: #F2972B;
+    color: white;
+    font-weight: bold;
+}
+
+.order-type button:not(.active) {
+    background: #bfbfbf;
+    color: #828181;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+label {
+    margin-bottom: 10px;
+    align-self: flex-start;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: left;
+}
+
+input {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 25px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: rgba(153, 153, 153, 0.2);
+    height: 50px;
+}
+
+.submit-btn {
+    background-color: #e48818;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    height: 55px;
+    text-align: center;
+    width: 100%;
+    max-width: 300px;
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 18px;
+    margin: 10px auto;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .container {
+        width: 95%;
+        margin: 10px auto;
+    }
+    
+    .header {
+        padding: 20px;
+        min-height: 150px;
+    }
+    
+    .order-type {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .order-type button {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 10px;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <div class="logo">
+            <div class="logo-images">
+              
+            </div>
+            <p>CAFFEINE</p>
+            <p>CORNER.</p>
+        </div>
+    </div>
+
+    <div class="order-type">
+        <button id="dineIn" class="active" onclick="toggleOrder('dineIn')">Dine In</button>
+        <button id="takeAway" onclick="toggleOrder('takeAway')">Take away</button>
+    </div>
+    
+    <form action="payment.html">
+        <label for="name">Nama Lengkap</label>
+        <input type="text" id="name" placeholder="">
+        
+        <label for="phone">Nomor Telepon</label>
+        <input type="text" id="phone" placeholder="">
+        
+        <div id="tableContainer">
+            <label for="table">Nomor Meja</label>
+            <input type="text" id="table" placeholder="">
+        </div>
+        
+        <button class="submit-btn">Selanjutnya</button>
+    </form>
+</div>
+
+<script>
+    function toggleOrder(type) {
+        if (type === 'dineIn') {
+            document.getElementById('dineIn').classList.add('active');
+            document.getElementById('takeAway').classList.remove('active');
+            document.getElementById('tableContainer').classList.remove('hidden');
+        } else {
+            document.getElementById('takeAway').classList.add('active');
+            document.getElementById('dineIn').classList.remove('active');
+            document.getElementById('tableContainer').classList.add('hidden');
+        }
+    }
+</script>
+</body>
+</html>
